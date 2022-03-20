@@ -29,6 +29,13 @@ resource "aws_security_group" "orthsecgrp" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
+    description = "Orthanc DicomWeb"
+    from_port   = 8042
+    to_port     = 8042
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
     description = "DICOM Communication"
     from_port   = 11112
     to_port     = 11112
@@ -94,7 +101,7 @@ resource "aws_iam_role_policy" "database_access_policy" {
 EOF
 }
 
-# IAM role needs to access KMS key to upload and download objects in S3 bucket with SSE 
+# IAM role needs to access KMS key to upload and download objects in S3 bucket with SSE
 # https://aws.amazon.com/premiumsupport/knowledge-center/decrypt-kms-encrypted-objects-s3/
 # https://aws.amazon.com/premiumsupport/knowledge-center/s3-access-denied-error-kms/
 resource "aws_iam_role_policy" "s3_access_policy" {
@@ -124,7 +131,7 @@ EOF
 
 resource "aws_instance" "orthweb" {
   ami                    = data.aws_ami.amazon_linux.id
-  instance_type          = "t2.medium"
+  instance_type          = "t2.small"
   user_data              = data.template_cloudinit_config.orthconfig.rendered
   key_name               = aws_key_pair.runner-pubkey.key_name
   vpc_security_group_ids = [aws_security_group.orthsecgrp.id]

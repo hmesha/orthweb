@@ -3,18 +3,18 @@ resource "random_pet" "prefix" {}
 module "iam_role" {
   source          = "./modules/role"
   resource_tags   = var.Tags
-  resource_prefix = random_pet.prefix.id
+  resource_prefix = "orthweb"
 }
 
 module "network" {
   source                     = "./modules/network"
-  vpc_cidr_block             = "172.27.0.0/16"
-  public_subnet1_cidr_block  = "172.27.3.0/24"
-  public_subnet2_cidr_block  = "172.27.5.0/24"
-  private_subnet1_cidr_block = "172.27.4.0/24"
-  private_subnet2_cidr_block = "172.27.6.0/24"
+  vpc_cidr_block             = "10.2.0.0/16"
+  public_subnet1_cidr_block  = "10.2.3.0/24"
+  public_subnet2_cidr_block  = "10.2.5.0/24"
+  private_subnet1_cidr_block = "10.2.4.0/24"
+  private_subnet2_cidr_block = "10.2.6.0/24"
   resource_tags              = var.Tags
-  resource_prefix            = random_pet.prefix.id
+  resource_prefix            = "orthweb"
 }
 
 module "secretmanager" {
@@ -22,7 +22,7 @@ module "secretmanager" {
   public_subnet1_id = module.network.vpc_info.public_subnet1_id
   public_subnet2_id = module.network.vpc_info.public_subnet2_id
   resource_tags     = var.Tags
-  resource_prefix   = random_pet.prefix.id
+  resource_prefix   = "orthweb"
 }
 
 module "database" {
@@ -32,7 +32,7 @@ module "database" {
   db_secret_id       = module.secretmanager.secret_info.db_secret_id
   depends_on         = [module.secretmanager]
   resource_tags      = var.Tags
-  resource_prefix    = random_pet.prefix.id
+  resource_prefix    = "orthweb"
 }
 
 module "storage" {
@@ -40,7 +40,7 @@ module "storage" {
   role_name       = module.iam_role.role_info.ec2_iam_role_name
   depends_on      = [module.iam_role]
   resource_tags   = var.Tags
-  resource_prefix = random_pet.prefix.id
+  resource_prefix = "orthweb"
 }
 
 module "ec2" {
@@ -56,5 +56,5 @@ module "ec2" {
   s3_integration = var.UseS3Storage
   depends_on       = [module.iam_role, module.database, module.storage]
   resource_tags    = var.Tags
-  resource_prefix  = random_pet.prefix.id
+  resource_prefix  = "orthweb"
 }
