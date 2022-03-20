@@ -11,7 +11,7 @@ variable "Tags" {
   type        = map(any)
   default = {
     Environment = "Dev"
-    Owner       = "my@email.com"
+    Owner       = "hmesha@gmail.com"
   }
 }
 variable "UseS3Storage" {

@@ -4,7 +4,7 @@
   "SslEnabled" : true,
   "HttpsCACertificates": "/etc/ssl/certs/ca-certificates.crt",
   "SslCertificate" : "site.pem",
-
+  "Plugins": ["/usr/share/orthanc/plugins", "/usr/local/share/orthanc/plugins"],
   "ConcurrentJobs": 2,
   "HttpServerEnabled": true,
   "HttpPort": 8042,
@@ -25,7 +25,6 @@
   "UnknownSopClassAccepted": false,
   "DicomScpTimeout": 30,
   "DicomModalities": {},
-
   "DicomModalitiesInDatabase": false,
   "DicomAlwaysAllowEcho": true,
   "DicomAlwaysAllowStore": true,
@@ -34,9 +33,7 @@
   "OrthancPeers": {},
   "OrthancPeersInDatabase": false,
   "HttpProxy": "",
-
   "HttpVerbose": true,
-
   "HttpTimeout": 10,
   "HttpsVerifyPeers": true,
   "UserMetadata": {},
@@ -64,7 +61,6 @@
   "MediaArchiveSize": 1,
   "StorageAccessOnFind": "Always",
   "MetricsEnabled": true,
-
   "DicomWeb": {
     "Enable": true,
     "Root": "/dicom-web/",
@@ -76,23 +72,16 @@
     "StowMaxSize": 10,
     "QidoCaseSensitive": false
   },
-
   "PostgreSQL" : {
     "EnableIndex" : true,
     "EnableStorage" : true,
     "Host" : "${DB_ADDR}",
-    "Port" : ${DB_PORT},
+    "Port" : "${DB_PORT}",
     "Database" : "orthancdb",
     "Username" : "${DB_USERNAME}",
     "Password" : "${DB_PASSWORD}",
     "EnableSsl" : true,
     "Lock" : false
-  },
-  "Plugins" : [
-    "/usr/local/share/orthanc/plugins/libOrthancPostgreSQLIndex.so",
-    "/usr/local/share/orthanc/plugins/libOrthancPostgreSQLStorage.so",
-    "/usr/local/share/orthanc/plugins/libOrthancWebViewer.so",
-    "/usr/local/share/orthanc/plugins/libOrthancAwsS3Storage.so",
-    "/usr/local/share/orthanc/plugins/libOrthancDicomWeb.so"
-  ]
+  }
 }
+

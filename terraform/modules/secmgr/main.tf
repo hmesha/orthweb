@@ -5,7 +5,7 @@ resource "random_password" "password" {
 }
 
 resource "aws_secretsmanager_secret" "secretDB" {
-  name = "${var.resource_prefix}DatabaseCreds"
+  name = "${var.resource_prefix}CredsDB"
   tags = merge(var.resource_tags, { Name = "${var.resource_prefix}-DBSecret" })
 }
 
@@ -40,6 +40,6 @@ resource "aws_vpc_endpoint" "secmgr" {
   private_dns_enabled = true
   security_group_ids  = [aws_security_group.epsecgroup.id]
   subnet_ids          = [var.public_subnet1_id, var.public_subnet2_id]
-  # For each interface endpoint, you can choose one subnet per AZ. 
+  # For each interface endpoint, you can choose one subnet per AZ.
   tags = merge(var.resource_tags, { Name = "${var.resource_prefix}-EndPointForSecMgr" })
 }

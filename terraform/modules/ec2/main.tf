@@ -29,13 +29,6 @@ resource "aws_security_group" "orthsecgrp" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-    description = "Orthanc DicomWeb"
-    from_port   = 8042
-    to_port     = 8042
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-  ingress {
     description = "DICOM Communication"
     from_port   = 11112
     to_port     = 11112
