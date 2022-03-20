@@ -1,4 +1,4 @@
-name: OrthancS3Plugin
+name: OrthancDicomwebS3Plugin
 
 on:
   workflow_dispatch:
