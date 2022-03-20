@@ -1,5 +1,5 @@
 {
-  "Name" : "Orthanc in Docker",
+  "Name" : "Cardioware Orthanc in Docker",
   "RemoteAccessAllowed" : true,
   "SslEnabled" : true,
   "HttpsCACertificates": "/etc/ssl/certs/ca-certificates.crt",

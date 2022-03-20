@@ -3,13 +3,13 @@
  
 ## Overview
 
-**[Orthanc](https://www.orthanc-server.com/)** is an open-source application to ingest, store, display and distribute medical images. **[Orthweb](https://github.com/digihunch/orthweb)** is an open-source project to automatically configure Orthanc and associated resource on AWS. It configures Orthanc in 10 minutes. When the deployment is completed, the website is ready to serve both web and DICOM traffic.
+**[Orthanc](https://www.orthanc-server.com/)** is an open-source application to ingest, store, display and distribute medical images. **[Orthweb](https://github.com/hmesha/orthweb)** is an open-source project to automatically configure Orthanc and associated resource on AWS. It configures Orthanc in 10 minutes. When the deployment is completed, the website is ready to serve both web and DICOM traffic.
 
 We use Terraform to create infrastructure on AWS, including VPC, subnets, secret manager, managed database (PostgreSQL), an EC2 instance and S3 bucket. The application is hosted in a Docker container on the EC2 instance.
 
 ## Production Use
 
-Orthweb project demonstrates the idea of infrastructure-as-code, deployment automation and security configurations in compliance with HIPPA. It provisions just enough resources for demo, and it is not intended for production use. A solution for production and clinical use requires a holistic planning for scalability, high availability, disaster recovery, security compliance etc, as well as custom implementation. Please contact [Digi Hunch](https://www.digihunch.com/) for professional IT service.
+Orthweb project demonstrates the idea of infrastructure-as-code, deployment automation and security configurations in compliance with HIPPA. It provisions just enough resources for demo, and it is not intended for production use. A solution for production and clinical use requires a holistic planning for scalability, high availability, disaster recovery, security compliance etc, as well as custom implementation. Please contact [Digi Hunch](https://www.hmesha.com/) for professional IT service.
 
 ## Prerequisite
 
@@ -17,7 +17,7 @@ Users need their own AWS account (Access Key ID and Secret Access Key with admin
 
 ## Deployment
 
-From command terminal, go to the [terraform](https://github.com/digihunch/orthweb/tree/main/terraform) directory and execute Terraform command from there.
+From command terminal, go to the [terraform](https://github.com/hmesha/orthweb/tree/main/terraform) directory and execute Terraform command from there.
 1. Initialize terraform modules, and plan for deployment, with command:
 
 > terraform init && terraform plan
@@ -194,7 +194,7 @@ The bucket is not publicly assissible and is protected by bucket policy configur
 
 The open-source Orthanc project does not include the plugin for storing images on S3 bucket. So I use custom Orthanc image based on [Osimis Orthanc image](https://hub.docker.com/r/osimis/orthanc), if S3 integration is turned on. 
 
-This project also includes the builder for Digi Hunch [custom Orthanc image](https://hub.docker.com/repository/docker/digihunch/orthanc) in the *build* directory. I use Github Action to build and push the image to my Docker registry. 
+This project also includes the builder for Digi Hunch [custom Orthanc image](https://hub.docker.com/repository/docker/hmesha/orthanc) in the *build* directory. I use Github Action to build and push the image to my Docker registry. 
 
 The EC2 initialization script automatically apply the configuration for the Orthanc image and Orthanc.json files, based on whether UseS3Storage variable is set to true.
 
@@ -205,7 +205,7 @@ The architecture can be illustrated in the diagram below:
 
 ![Diagram](resources/Orthweb.png)
 
-Orthweb is built on AWS as cloud platform, and uses Docker on EC2 to host application. The alternative to EC2 is ECS but ECS has some [limitations](https://github.com/digihunch/orthweb/issues/1#issuecomment-852669561). Docker on EC2 is sufficient for typical imaging workload. [This](https://ably.com/blog/no-we-dont-use-kubernetes) blog discusses how Docker on EC2 in Autoscaling group suits the need of most workloads without the complexity of Kubernetes. Orthweb has a sibling project [Korthweb](https://github.com/digihunch/korthweb) under development, which deploys Orthanc on Kubernetes platform.
+Orthweb is built on AWS as cloud platform, and uses Docker on EC2 to host application. The alternative to EC2 is ECS but ECS has some [limitations](https://github.com/hmesha/orthweb/issues/1#issuecomment-852669561). Docker on EC2 is sufficient for typical imaging workload. [This](https://ably.com/blog/no-we-dont-use-kubernetes) blog discusses how Docker on EC2 in Autoscaling group suits the need of most workloads without the complexity of Kubernetes. Orthweb has a sibling project [Korthweb](https://github.com/hmesha/korthweb) under development, which deploys Orthanc on Kubernetes platform.
 
 |            | Orthweb Demo                 | Korthweb Demo                        |
 |------------|------------------------------|--------------------------------------|
